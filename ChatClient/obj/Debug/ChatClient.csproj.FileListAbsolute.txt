@@ -8,3 +8,5 @@ C:\Users\admin\Documents\Visual Studio 2008\Projects\ChatSystem\ChatClient\obj\D
 C:\Users\admin\Documents\Visual Studio 2008\Projects\ChatSystem\ChatClient\obj\Debug\ChatClient.pdb
 X:\Dropbox\Workspace\Semester 04\DNPI1\ChatClient\obj\Debug\ChatClient.exe
 X:\Dropbox\Workspace\Semester 04\DNPI1\ChatClient\obj\Debug\ChatClient.pdb
+C:\SmallBang\c#\ChatSystem\ChatClient\obj\Debug\ChatClient.exe
+C:\SmallBang\c#\ChatSystem\ChatClient\obj\Debug\ChatClient.pdb
