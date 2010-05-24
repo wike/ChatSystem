@@ -10,7 +10,7 @@ namespace ChatClient
     {
         public static void Main()
         {
-            Client client = new Client();
+            Client2 client = new Client2();
             client.sendText("this should be printed and also returned");
         }
     }
