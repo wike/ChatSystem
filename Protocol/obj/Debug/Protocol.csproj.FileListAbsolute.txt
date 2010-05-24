@@ -1,7 +1,0 @@
-C:\Users\admin\Documents\Visual Studio 2008\Projects\ChatSystem\Protocol\obj\Debug\ResolveAssemblyReference.cache
-C:\Users\admin\Documents\Visual Studio 2008\Projects\ChatSystem\Protocol\bin\Debug\Protocol.dll
-C:\Users\admin\Documents\Visual Studio 2008\Projects\ChatSystem\Protocol\bin\Debug\Protocol.pdb
-C:\Users\admin\Documents\Visual Studio 2008\Projects\ChatSystem\Protocol\bin\Debug\model.dll
-C:\Users\admin\Documents\Visual Studio 2008\Projects\ChatSystem\Protocol\bin\Debug\model.pdb
-C:\Users\admin\Documents\Visual Studio 2008\Projects\ChatSystem\Protocol\obj\Debug\Protocol.dll
-C:\Users\admin\Documents\Visual Studio 2008\Projects\ChatSystem\Protocol\obj\Debug\Protocol.pdb

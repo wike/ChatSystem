@@ -1,8 +1,0 @@
-C:\Users\admin\Documents\Visual Studio 2008\Projects\ChatSystem\ChatClient\bin\Debug\ChatClient.exe.config
-C:\Users\admin\Documents\Visual Studio 2008\Projects\ChatSystem\ChatClient\bin\Debug\ChatClient.exe
-C:\Users\admin\Documents\Visual Studio 2008\Projects\ChatSystem\ChatClient\bin\Debug\ChatClient.pdb
-C:\Users\admin\Documents\Visual Studio 2008\Projects\ChatSystem\ChatClient\obj\Debug\ResolveAssemblyReference.cache
-C:\Users\admin\Documents\Visual Studio 2008\Projects\ChatSystem\ChatClient\obj\Debug\ChatClient.Properties.Resources.resources
-C:\Users\admin\Documents\Visual Studio 2008\Projects\ChatSystem\ChatClient\obj\Debug\ChatClient.csproj.GenerateResource.Cache
-C:\Users\admin\Documents\Visual Studio 2008\Projects\ChatSystem\ChatClient\obj\Debug\ChatClient.exe
-C:\Users\admin\Documents\Visual Studio 2008\Projects\ChatSystem\ChatClient\obj\Debug\ChatClient.pdb
