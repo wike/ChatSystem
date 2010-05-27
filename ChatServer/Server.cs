@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Net.Sockets;
+
 using System.Threading;
 using System.Collections;
 using System.Net;
+using System.Net.Sockets;
 
 namespace ChatServer
 {
@@ -110,7 +111,6 @@ namespace ChatServer
                     //a socket error has occured
                     break;
                 }
-
                
                 //message has successfully been received
                 System.Console.WriteLine(encoder.GetString(message, 0, bytesRead));
@@ -128,6 +128,11 @@ namespace ChatServer
             foreach (DictionaryEntry de in htClients){
                 Console.WriteLine("Entry Key {0} Value {1}", de.Key, de.Value);
             }
+        }
+
+        public void closeConnection() {
+            tcpListener.Stop();
+            listenThread.Abort();
         }
     }
 }
