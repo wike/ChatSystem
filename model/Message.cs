@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace model
+using System.Xml;
+namespace Model
 {
-    public class Message : MarshalByRefObject,IDisposable
+    [Serializable]
+    public abstract class Message
     {
-        public void Dispose()
-        {
-            GC.SuppressFinalize(this);
-        }
+        public abstract XmlDocument toXml();
     }
 }

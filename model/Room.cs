@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace model
+namespace Model
 {
-    class Room
+    [Serializable]
+    public class Room
     {
         private int id {get; set;}
         private String topic { get; set; }

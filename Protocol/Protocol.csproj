@@ -45,12 +45,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AbstractChatMessage.cs" />
-    <Compile Include="AbstractMessage.cs" />
-    <Compile Include="MessageFactory.cs" />
-    <Compile Include="MessageParser.cs" />
-    <Compile Include="MessageReader.cs" />
-    <Compile Include="MessageWriter.cs" />
+    <Compile Include="AuthenticationException.cs" />
+    <Compile Include="IClientProtocol.cs" />
+    <Compile Include="IServerProtocol.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

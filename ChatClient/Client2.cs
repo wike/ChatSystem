@@ -20,9 +20,7 @@ namespace ChatClient
 
         public Client2()
         {
-            this.client = new TcpClient();
-            IPEndPoint serverEndPoint = new IPEndPoint(IPAddress.Parse(ip), port);
-            client.Connect(serverEndPoint);
+            this.client = new TcpClient(ip, port);
 
             clientStream = client.GetStream();
 
@@ -39,21 +37,17 @@ namespace ChatClient
             {
                 bytesRead = 0;
 
-                try
-                {
-                    //blocks until a client sends a message
-                    bytesRead = clientStream.Read(message, 0, 4096);
-                }
-                catch
-                {
-                    //a socket error has occured
+                if (!clientStream.DataAvailable){
+                    //the client has disconnected from the server
+                    //htClients.Remove(tcpClient); //need to keep the client list up to date
                     break;
                 }
 
-                if (bytesRead == 0)
-                {
-                    //the client has disconnected from the server
-                    //htClients.Remove(tcpClient); //need to keep the client list up to date
+                try{
+                    //blocks until a client sends a message
+                    bytesRead = clientStream.Read(message, 0, 4096);
+                }catch{
+                    //a socket error has occured
                     break;
                 }
 
@@ -66,7 +60,7 @@ namespace ChatClient
 
         public void sendText(string txt)
         {
-            byte[] buffer = encoder.GetBytes(txt);
+            byte[] buffer = Encoding.Unicode.GetBytes(txt);
             clientStream.Write(buffer, 0, buffer.Length);
             clientStream.Flush();
         }

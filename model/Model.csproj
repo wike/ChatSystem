@@ -8,8 +8,8 @@
     <ProjectGuid>{B5DCE335-FE12-467E-8787-25EB46942036}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>model</RootNamespace>
-    <AssemblyName>model</AssemblyName>
+    <RootNamespace>Model</RootNamespace>
+    <AssemblyName>Model</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -46,9 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AuthenticateMessage.cs" />
     <Compile Include="ChatMessage.cs" />
+    <Compile Include="EStatus.cs" />
     <Compile Include="Message.cs" />
     <Compile Include="Room.cs" />
+    <Compile Include="Serializer.cs" />
     <Compile Include="User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

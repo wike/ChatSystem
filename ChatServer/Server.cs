@@ -35,18 +35,14 @@ namespace ChatServer
 
         private void HandleIncommingMessages()
         {
-            while (true)
-            {
-                try
-                {
-                    lock (q)   //synchronized
-                    {
+            while (true){
+                try{
+                    //synchronized
+                    lock (q){
                         sendMessages();
                     }
                     System.Threading.Thread.Sleep(1000);
-                }
-                catch (Exception ex)
-                {
+                }catch (Exception ex){
                     Console.WriteLine(ex);
                     break;
                 }
@@ -55,21 +51,17 @@ namespace ChatServer
 
         private void sendMessages()
         {
-            while (q.Count > 0)
-            {
+            while (q.Count > 0){
                 string text = q.Dequeue();
-                foreach (DictionaryEntry de in htClients)
-                {
-                    try
-                    {
+                foreach (DictionaryEntry de in htClients){
+                    try{
                         ASCIIEncoding encoder = new ASCIIEncoding();
                         byte[] buffer = encoder.GetBytes(text);
                         NetworkStream ns = (NetworkStream)de.Value;
                         ns.Write(buffer, 0, buffer.Length);
                         ns.Flush();
                     }
-                    catch
-                    {
+                    catch{
                         //a socket error has occured
                         break;
                     }
@@ -81,8 +73,7 @@ namespace ChatServer
         {
             this.tcpListener.Start();
 
-            while (true)
-            {
+            while (true){
                 //blocks until a client has connected to the server
                 TcpClient client = this.tcpListener.AcceptTcpClient();
 
@@ -95,7 +86,7 @@ namespace ChatServer
 
         private void HandleClientComm(object client)
         {
-            TcpClient tcpClient = (TcpClient)client;
+            TcpClient tcpClient = client as TcpClient;
             NetworkStream clientStream = tcpClient.GetStream();
 
             htClients.Add(tcpClient, clientStream); //add to client list
@@ -103,28 +94,24 @@ namespace ChatServer
             byte[] message = new byte[4096];
             int bytesRead;
 
-            while (true)
-            {
+            while (true){
                 bytesRead = 0;
 
-                try
-                {
-                    //blocks until a client sends a message
-                    bytesRead = clientStream.Read(message, 0, 4096);
-                }
-                catch
-                {
-                    //a socket error has occured
-                    break;
-                }
-
-                if (bytesRead == 0)
-                {
+                if (!clientStream.DataAvailable){
                     //the client has disconnected from the server
                     htClients.Remove(tcpClient);
                     break;
                 }
 
+                try{
+                    //blocks until a client sends a message
+                    bytesRead = clientStream.Read(message, 0, 4096);
+                }catch{
+                    //a socket error has occured
+                    break;
+                }
+
+               
                 //message has successfully been received
                 System.Console.WriteLine(encoder.GetString(message, 0, bytesRead));
 
@@ -138,8 +125,7 @@ namespace ChatServer
 
         public void listClients()
         {
-            foreach (DictionaryEntry de in htClients)
-            {
+            foreach (DictionaryEntry de in htClients){
                 Console.WriteLine("Entry Key {0} Value {1}", de.Key, de.Value);
             }
         }

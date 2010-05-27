@@ -13,11 +13,7 @@ namespace ChatServer
     {
         public ServerConnection()
         {
-            ChannelServices.RegisterChannel(new HttpChannel(9999), true);
-            RemotingConfiguration.RegisterWellKnownServiceType(
-                Type.GetType("model.Message"), "Message",
-                WellKnownObjectMode.SingleCall);
-
+            
         }
     }
 }
