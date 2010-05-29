@@ -27,20 +27,15 @@ namespace ChatClient
             encoder = new UTF8Encoding();
         }
 
-        private void listen(object clients)
+        private void listen()
         {
             StreamReader reader = new StreamReader(client.GetStream());
             AbstractMessage message;
-            String data = "";
             while (true)
             {
-                while (client.Available>0)
-                {
-                    data += reader.ReadToEnd();
-                    XmlDocument xmldoc = MessageReader.readMessage(client);
-                    message = MessageParser.parse(xmldoc);
-                    notifyObservers(message);
-                }
+                XmlDocument xmldoc = MessageReader.readMessage(client);
+                message = MessageParser.parse(xmldoc);
+                notifyObservers(message);
             }
         }
 
@@ -55,10 +50,10 @@ namespace ChatClient
         {
             client = new TcpClient();
             client.Connect(ip, port);
-         
+
             messageWriter = new MessageWriter(client);
-            Thread clientThread = new Thread(new ParameterizedThreadStart(listen));
-            clientThread.Start(client);
+            Thread clientThread = new Thread(new ThreadStart(listen));
+            clientThread.Start();
         }
 
         public Boolean isConnected()
@@ -76,7 +71,7 @@ namespace ChatClient
 
         public void removeObserver(IClientView clientView)
         {
-            throw new NotImplementedException();
+            observerList.Remove(clientView);
         }
 
         public void requestUserList()

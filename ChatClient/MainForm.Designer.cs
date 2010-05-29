@@ -31,7 +31,6 @@
             this.lbUsers = new System.Windows.Forms.ListBox();
             this.rtChat = new System.Windows.Forms.RichTextBox();
             this.rtMessage = new System.Windows.Forms.RichTextBox();
-            this.splitter1 = new System.Windows.Forms.Splitter();
             this.btnSend = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -59,14 +58,6 @@
             this.rtMessage.TabIndex = 2;
             this.rtMessage.Text = "";
             // 
-            // splitter1
-            // 
-            this.splitter1.Location = new System.Drawing.Point(0, 0);
-            this.splitter1.Name = "splitter1";
-            this.splitter1.Size = new System.Drawing.Size(3, 362);
-            this.splitter1.TabIndex = 3;
-            this.splitter1.TabStop = false;
-            // 
             // btnSend
             // 
             this.btnSend.Location = new System.Drawing.Point(562, 267);
@@ -83,7 +74,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(762, 362);
             this.Controls.Add(this.btnSend);
-            this.Controls.Add(this.splitter1);
             this.Controls.Add(this.rtMessage);
             this.Controls.Add(this.rtChat);
             this.Controls.Add(this.lbUsers);
@@ -100,7 +90,6 @@
         private System.Windows.Forms.ListBox lbUsers;
         private System.Windows.Forms.RichTextBox rtChat;
         private System.Windows.Forms.RichTextBox rtMessage;
-        private System.Windows.Forms.Splitter splitter1;
         private System.Windows.Forms.Button btnSend;
     }
 }

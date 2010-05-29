@@ -15,11 +15,14 @@ namespace Model
         public static AbstractMessage parse(XmlDocument message)
         {
             AbstractMessage concreteMessage;
-            XmlSerializer xmlSerializer = new XmlSerializer(typeof(AbstractMessage));
-            XmlReader reader = XmlReader.Create(message.InnerText);
+            XmlSerializer xmlSerializer = new XmlSerializer(typeof(ChatMessage));
+            StringReader xmlstring = new StringReader(message.InnerXml.ToString());
+
+            XmlReader reader = XmlReader.Create(xmlstring);
+            reader.MoveToContent();
             if (xmlSerializer.CanDeserialize(reader))
             {
-                concreteMessage = xmlSerializer.Deserialize(reader) as AbstractMessage;
+                concreteMessage = xmlSerializer.Deserialize(reader) as ChatMessage;
             }
             else
             {

@@ -26,9 +26,9 @@ namespace ChatClient
         {
             ChatMessage message = new ChatMessage();
             message.content = rtMessage.Text;
-            rtChat.AppendText(message.toXml().InnerXml);
-            rtChat.AppendText("\n");
+            rtChat.AppendText(String.Format("You wrote: {0}\n", message.content));
             controller.send(message);
+            rtMessage.Clear();
         }
 
         private void MainForm_FormClosed(object sender, forms.FormClosedEventArgs e)
@@ -45,17 +45,26 @@ namespace ChatClient
 
         public void setUserList(LinkedList<User> userList)
         {
-            throw new NotImplementedException();
+            foreach (User user in userList) {
+                lbUsers.Items.Add(user.name);
+            }
         }
 
         public void receiveMessage(AbstractMessage message)
         {
-            throw new NotImplementedException();
+            ChatMessage chatMessage = (ChatMessage)message;
+            rtChat.AppendText(
+                String.Format("{0} => {1} : {2}", 
+                chatMessage.from.name,
+                chatMessage.to.name,
+                chatMessage.content)
+            );
         }
 
         public void update(AbstractMessage message)
         {
-            rtChat.AppendText(message.toXml().ToString());
+            ChatMessage msg = (ChatMessage) message;
+            rtChat.AppendText(msg.content+"\n");
         }
 
         public void setModelController(IClientModel model, IClientController controller)

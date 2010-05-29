@@ -17,6 +17,7 @@ namespace ChatClient
         private IClientModel model;
         private IClientView view;
 
+        private User user;
         private ClientController()
         {
             model = null;
@@ -38,19 +39,22 @@ namespace ChatClient
             }
         }
 
-        public void connect(IPAddress ip, int port) {
+        public void connect(IPAddress ip, int port)
+        {
             model.connect(ip, port);
-            view.Hide();
-            MainForm mainForm = new MainForm(this);
-            this.setView(mainForm);
-            mainForm.Show();
         }
 
         #region IClientController Members
 
         public void login(User user)
         {
-            throw new NotImplementedException();
+            //model.send(new AuthenticateMessage(user));
+            this.user = user;
+            view.Hide();
+            MainForm mainForm = new MainForm(this);
+            this.setView(mainForm);
+            mainForm.Show();
+           
         }
 
         public void logout(User user)
@@ -63,11 +67,15 @@ namespace ChatClient
             model.requestUserList();
         }
 
-        public void send(Model.AbstractMessage message)
+        public void send(AbstractMessage message)
         {
             model.send(message);
         }
 
+        public void send(ChatMessage message) {
+            message.from = this.user;
+            model.send(message);
+        }
         public void setModel(IClientModel model)
         {
             this.model = model;

@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using System.Text.RegularExpressions;
 using System.Net.Sockets;
 using System.Net;
+using Model;
 
 namespace ChatClient
 {
@@ -94,6 +95,10 @@ namespace ChatClient
                 //try to connect to the server and authenticate
                 try{
                     controller.connect(ipAddress, port);
+                    User user = new User();
+                    user.name = tbUsername.Text;
+                    user.password = tbPassword.Text;
+                    controller.login(user);
                 }
                 catch (SocketException) {
                     MessageBox.Show("There was a problem while connecting to the server.\nPlease check your connection and connection settings.");
@@ -117,7 +122,7 @@ namespace ChatClient
             throw new System.NotImplementedException();
         }
 
-        public void receiveMessage(Model.AbstractMessage message)
+        public void receiveMessage(AbstractMessage message)
         {
             throw new System.NotImplementedException();
         }

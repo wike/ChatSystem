@@ -11,15 +11,15 @@ namespace Model
     {
         public static XmlDocument readMessage(TcpClient client)
         {
-            StreamReader streamReader = new StreamReader(client.GetStream());
-            String data = "";
-            while (!streamReader.EndOfStream)
+            NetworkStream ns = client.GetStream();
+            byte[] buffer = new byte[4096];
+            do
             {
-                data += streamReader.ReadLine();
-            }
+                ns.Read(buffer, 0, buffer.Length);
+            } while (ns.DataAvailable);
 
             XmlDocument xmldoc = new XmlDocument();
-            xmldoc.Load(data);
+            xmldoc.Load(new MemoryStream(buffer));
             return xmldoc;
         }
     }

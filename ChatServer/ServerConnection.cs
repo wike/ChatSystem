@@ -98,19 +98,27 @@ namespace ChatServer
 
                 if (client.Connected)
                 {
-                    while (true) {
-                        clientList.Add(client); //add to client list
-                        ServerController.Instance.mainForm.addMessage("New client connected\n");
-                        AbstractMessage message = MessageParser.parse(MessageReader.readMessage(client));
-                        //read & process the message
-                        ServerController.Instance.mainForm.addMessage("New message: " + message.ToString() + "\n");
-                    }
+                    clientList.Add(client); //add to client lists
 
-                    
+                    ThreadStart clientThread = delegate { new ServerConnection().HandleUserConnection(client); };
+                    new Thread(clientThread).Start();
                 }
-                client.Close();
+               
             }
-            
+
+        }
+
+        private void HandleUserConnection(TcpClient client)
+        {
+            ServerController.Instance.mainForm.addMessage("New client connected\n");
+            while (true)
+            {
+                XmlDocument xmlMessage = MessageReader.readMessage(client);
+                ChatMessage message = (ChatMessage)MessageParser.parse(xmlMessage);
+                //read & process the message
+                ServerController.Instance.mainForm.addMessage(String.Format("new message : {0}", message.content));
+                sendChatMessageToAll(message);
+            }
         }
         /// <summary>
         /// Converts raw String to the Message object using deserialization
@@ -137,9 +145,17 @@ namespace ChatServer
 
         public void listClients()
         {
-            foreach (DictionaryEntry de in clientList)
+            foreach (User user in clientList)
             {
-                Console.WriteLine("Entry Key {0} Value {1}", de.Key, de.Value);
+                Console.WriteLine("Entry Key {0} Value {1}", user.id, user.name);
+            }
+        }
+
+        public void sendChatMessageToAll(ChatMessage message)
+        {
+            foreach (TcpClient client in clientList)
+            {
+                MessageWriter.writeMessage(client, message);
             }
         }
 

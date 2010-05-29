@@ -27,6 +27,7 @@ namespace ChatServer
             SqlCommand cmd = new SqlCommand("select * from users WHERE name=" + user.name + " AND password=" + user.password, sqlConnection);
             reader = cmd.ExecuteReader();
 
+            //check if we found our user
             Boolean result = reader.HasRows;
 
             if (reader != null)
