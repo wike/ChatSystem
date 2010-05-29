@@ -8,12 +8,14 @@ using System.Text;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
 using System.Net.Sockets;
+using System.Net;
 
 namespace ChatClient
 {
-    public partial class LoginForm : Form
+    public partial class LoginForm : Form, IClientView
     {
-        private ClientController controller;
+        private IClientController controller;
+        private IClientModel model;
 
         private LoginForm()
         {
@@ -58,49 +60,47 @@ namespace ChatClient
         {
             /// test user entered fields
             String errors = "";
+            IPAddress ipAddress = null;
             int port = 0;
             if (tbUsername.Text.Trim().Length == 0)
             {
                 errors += "Username not entered\n";
             }
-            if (!IsValidIP(tbServerIp.Text))
-            {
+
+            try {
+                ipAddress = IPAddress.Parse(tbServerIp.Text.Trim());
+            }catch(FormatException exception){
                 errors += "Server IP address is not valid\n";
+                Console.WriteLine("Exception in btnLogin.click: {0}", exception.Message);
+            }catch(ArgumentNullException exception){
+                errors += "Server IP address is not valid\n";
+                Console.WriteLine("Exception in btnLogin.click: tbServerIp.Text == null; {0}", exception.Message);
             }
-            if (tbServerPort.Text.Trim().Length == 0)
-            {
-                errors += "Server port is not valid\n";
-            }
-            else
-            {
-                try{
-                    if (!Int32.TryParse(tbServerPort.Text, out port))
-                    {
-                        errors += "Server port has to be a number";
-                    }
+            
+            try{
+                if (!Int32.TryParse(tbServerPort.Text, out port))
+                {
+                        errors += "Server port is not valid\n";
                 }
-                catch { }
+            } 
+            catch(Exception exception) {
+                Console.WriteLine(exception.Message);
             }
-            if (errors.Length > 0)
-            {
+           
+            if (errors.Length > 0){
                 MessageBox.Show(errors);
                 return;
-            }
-            else {
+            }else{
                 //try to connect to the server and authenticate
-                try
-                {
-                    ClientConnection client = new ClientConnection(tbServerIp.Text, port);
-                    this.Hide();
-                    MainForm mainForm = new MainForm(controller);
-                    mainForm.Show();
+                try{
+                    controller.connect(ipAddress, port);
                 }
                 catch (SocketException) {
                     MessageBox.Show("There was a problem while connecting to the server.\nPlease check your connection and connection settings.");
                 }
                 catch (Exception exception)
                 {
-                    MessageBox.Show("Wooooops!\n {0}", exception.Message);
+                    MessageBox.Show(exception.StackTrace, "Exception");
                 }
             }
         }
@@ -109,5 +109,30 @@ namespace ChatClient
         {
             Environment.Exit(0);
         }
+
+        #region IClientView Members
+
+        public void setUserList(System.Collections.Generic.LinkedList<Model.User> userList)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void receiveMessage(Model.AbstractMessage message)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void update(Model.AbstractMessage message)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void setModelController(IClientModel model, IClientController controller)
+        {
+            this.model = model;
+            this.controller = controller;
+        }
+
+        #endregion
     }
 }

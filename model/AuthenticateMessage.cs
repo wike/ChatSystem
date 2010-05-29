@@ -9,7 +9,7 @@ using System.Xml.Serialization;
 namespace Model
 {
     [Serializable]
-    public class AuthenticateMessage : Message
+    public class AuthenticateMessage : AbstractMessage
     {
         const String command = "authenticate";
         User user;

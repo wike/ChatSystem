@@ -59,16 +59,16 @@ namespace ChatServer
             }
         }
 
-        public Message getIncomingMessage() {
+        public AbstractMessage getIncomingMessage() {
             return serverConnection.dequeueMessageIn();
         }
 
-        public void sendMessageOut(Message message) {
+        public void sendMessageOut(AbstractMessage message) {
             serverConnection.queueMessageOut(message);
         }
 
         public void messageCame() { 
-            Message m;
+            AbstractMessage m;
             while ((m = getIncomingMessage())!= null) {
                 mainForm.addMessage(m.toXml().InnerXml);
             }

@@ -11,7 +11,7 @@ using System.Xml;
 namespace Model
 {
     [Serializable]
-    public class ChatMessage : Message
+    public class ChatMessage : AbstractMessage
     {
         public int id{ get; set; }
         public User from { get; set; }

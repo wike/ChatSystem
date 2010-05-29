@@ -13,20 +13,23 @@ using System.Net;
 namespace ChatServer
 {
     public partial class MainForm : Form
-    { 
+    {
         public ServerController controller { get; set; }
         public MainForm()
         {
             InitializeComponent();
         }
 
-        public MainForm(ServerController controller): this() {
+        public MainForm(ServerController controller)
+            : this()
+        {
             this.controller = controller;
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            if (controller.serverStarted) {
+            if (controller.serverStarted)
+            {
                 rbLog.AppendText("Server going offline => ");
                 controller.stopServer();
                 rbLog.AppendText("[OK]\n");
@@ -39,18 +42,21 @@ namespace ChatServer
             rbLog.AppendText("Server starting => ");
             lblStatus.Text = "Server loading";
             int port = 0;
-            if (!Int32.TryParse(tbPort.Text, out port)){
+            if (!Int32.TryParse(tbPort.Text, out port))
+            {
                 MessageBox.Show("Port is not valid");
                 return;
             }
-            try{
+            try
+            {
                 controller.startServer(port);
                 rbLog.AppendText("[OK]\n");
                 lblStatus.Text = "Server online";
             }
-            catch (SocketException exception) {
+            catch (SocketException exception)
+            {
                 rbLog.AppendText("[Error]\n");
-                rbLog.AppendText("Message: "+ exception.Message + "\n");
+                rbLog.AppendText("Message: " + exception.Message + "\n");
                 lblStatus.Text = "Server offline";
             }
         }
@@ -75,13 +81,12 @@ namespace ChatServer
         {
         }
 
-        public void addMessage(String msg){
+        public void addMessage(String msg)
+        {
             CheckForIllegalCrossThreadCalls = false;
-            lock (rbLog)
-            {
-                rbLog.AppendText(msg);
-            }
+            rbLog.AppendText(msg + "\n");
         }
+
         private void MainForm_Load(object sender, EventArgs e)
         {
 

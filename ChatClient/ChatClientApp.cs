@@ -13,7 +13,12 @@ namespace ChatClient
         public static void Main()
         {
             ClientController controller = ClientController.Instance;
-            Application.Run(new LoginForm(controller));
+            ClientModel model = new ClientModel();
+            LoginForm loginForm = new LoginForm(controller);
+            controller.setView(loginForm);
+            controller.setModel(model);
+            loginForm.setModelController(model, controller);
+            Application.Run(loginForm);
         }
     }
 }

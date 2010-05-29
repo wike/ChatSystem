@@ -49,7 +49,12 @@
     <Compile Include="AuthenticateMessage.cs" />
     <Compile Include="ChatMessage.cs" />
     <Compile Include="EStatus.cs" />
-    <Compile Include="Message.cs" />
+    <Compile Include="GetUserListMessage.cs" />
+    <Compile Include="AbstractMessage.cs" />
+    <Compile Include="MessageFactory.cs" />
+    <Compile Include="MessageParser.cs" />
+    <Compile Include="MessageReader.cs" />
+    <Compile Include="MessageWriter.cs" />
     <Compile Include="Room.cs" />
     <Compile Include="Serializer.cs" />
     <Compile Include="User.cs" />

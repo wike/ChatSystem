@@ -66,9 +66,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ClientConnection.cs" />
     <Compile Include="ChatClientApp.cs" />
     <Compile Include="ClientController.cs" />
+    <Compile Include="ClientModel.cs" />
+    <Compile Include="IClientController.cs" />
+    <Compile Include="IClientModel.cs" />
+    <Compile Include="IClientView.cs" />
     <Compile Include="LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>

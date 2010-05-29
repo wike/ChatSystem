@@ -3,19 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Model;
+using System.Net;
+using System.Windows.Forms;
+using System.Net.Sockets;
 
 namespace ChatClient
 {
-    public class ClientController
+    public class ClientController : IClientController
     {
         private static volatile ClientController instance;
         private static object syncRoot = new Object(); //for locking, to avoid deadlocks
 
-        private ClientConnection clientConnection;
+        private IClientModel model;
+        private IClientView view;
 
         private ClientController()
         {
-            
+            model = null;
         }
 
         public static ClientController Instance
@@ -34,14 +38,46 @@ namespace ChatClient
             }
         }
 
-        public void connect(string ip, int port) {
-            clientConnection = new ClientConnection(ip, port);
+        public void connect(IPAddress ip, int port) {
+            model.connect(ip, port);
+            view.Hide();
+            MainForm mainForm = new MainForm(this);
+            this.setView(mainForm);
+            mainForm.Show();
         }
 
-        public void sendMessage(Message message){
-            if (clientConnection != null) {
-                clientConnection.sendText(message.toXml().InnerXml);
-            }
+        #region IClientController Members
+
+        public void login(User user)
+        {
+            throw new NotImplementedException();
         }
+
+        public void logout(User user)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void requestUserList()
+        {
+            model.requestUserList();
+        }
+
+        public void send(Model.AbstractMessage message)
+        {
+            model.send(message);
+        }
+
+        public void setModel(IClientModel model)
+        {
+            this.model = model;
+        }
+
+        public void setView(IClientView view)
+        {
+            this.view = view;
+        }
+
+        #endregion
     }
 }

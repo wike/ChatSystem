@@ -12,7 +12,7 @@ namespace Protocol
 
     interface IClientProtocol
     {
-        Boolean receiveMessages(LinkedList<Message> message);
+        Boolean receiveMessages(LinkedList<AbstractMessage> message);
         EStatus getStatus();
         Boolean ping();
     }
